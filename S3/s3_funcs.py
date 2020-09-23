@@ -70,6 +70,23 @@ def download_file(bucket, key, filename):
     resource = get_resource()
     resource.meta.client.download_file(bucket, key, filename)
 
+def get_file_size(bucket, key):
+
+    client = get_client()
+    response = client.head_object(Bucket = bucket, Key = key)
+    print (response)
+
+    print ()
+    print (response['ContentLength'])
+
+    for key in response:
+        print (key + ': ' + str( response[key]))
+        print ()
+
+def bytes_to_giga(bytes):
+
+    return bytes / 1024 / 1024 / 1024
+
 def import_credentials(file_path, export_role, set_creds = True):
 
     file = open(file_path, 'r')

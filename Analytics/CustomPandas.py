@@ -50,7 +50,7 @@ def move_last_column_to_first(df):
 
 def prep_datetime(df, time_col, dt_col, format = '%Y-%m:-%d %H:%M:%S'):
 
-    df[dt_col] = df[time_col].apply(lambda x: datetime.strptime(x, format) )
+    df[dt_col] = df[time_col].apply(lambda x: datetime.datetime.strptime(x, format) )
     return df
 
 def fill_nans(df, value_to_fill):
