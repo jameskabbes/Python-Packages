@@ -89,16 +89,6 @@ def get_file_size(bucket, key):
     client = get_client()
     response = client.head_object(Bucket = bucket, Key = key)
 
-    '''
-    print (response)
-    print ()
-    print (response['ContentLength'])
-
-    for key in response:
-        print (key + ': ' + str( response[key]))
-        print ()
-    '''
-
     return bytes_to_giga( response['ContentLength'] )
 
 def add_s3n_to_key(key):
