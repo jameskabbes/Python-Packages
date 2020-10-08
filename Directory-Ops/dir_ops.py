@@ -40,7 +40,9 @@ def copy_paste_file(copy_path, paste_path):
     if path_exists(copy_path) and not path_exists(paste_path):
         shutil.copyfile(copy_path, paste_path)
         print ('copying file...')
-
+        
+    else:
+        print ('Could not copy and paste file')
 
 def remove_file(path, override = False):
     '''removes file at given path'''

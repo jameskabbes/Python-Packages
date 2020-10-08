@@ -32,8 +32,8 @@ def print_for_loop(list):
 
 def copy(string):
     '''copies string to clipboard'''
-
     pyperclip.copy(string)
+
 
 
 

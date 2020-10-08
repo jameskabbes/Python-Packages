@@ -3,7 +3,7 @@
 def import_func():
 
     import sys
-    sys.path.append('C:/Users/e150445/Documents/Python Packages')
+    sys.path.append('C:/Users/e150445/Documents/Python-Packages')
     import import_packages as imp
     imp.package_import()
 

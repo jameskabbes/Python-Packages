@@ -59,9 +59,8 @@ def upload_file(bucket, key, filename):
     #key is the entire aws path
     #filename is the base path of the file
 
-    if input('Type "override" to upload file. Double check the --sse') == 'override':
-        resource = get_resource()
-        resource.meta.client.upload_file(filename, bucket, key)
+    resource = get_resource()
+    resource.meta.client.upload_file(filename, bucket, key)
 
 def download_file(bucket, key, filename):
 
@@ -70,18 +69,41 @@ def download_file(bucket, key, filename):
     resource = get_resource()
     resource.meta.client.download_file(bucket, key, filename)
 
+def get_total_size_of_subfolder(bucket, prefix):
+
+    files = list_files(bucket, prefix)
+
+    total = 0
+
+    for file in files:
+        total += get_file_size(bucket, file)
+
+    print ()
+    print ()
+    print ('Total: ' + str(total) + ' GB')
+
+    return total
+
 def get_file_size(bucket, key):
 
     client = get_client()
     response = client.head_object(Bucket = bucket, Key = key)
-    print (response)
 
+    '''
+    print (response)
     print ()
     print (response['ContentLength'])
 
     for key in response:
         print (key + ': ' + str( response[key]))
         print ()
+    '''
+
+    return bytes_to_giga( response['ContentLength'] )
+
+def add_s3n_to_key(key):
+
+    return 's3n://' + key
 
 def bytes_to_giga(bytes):
 
