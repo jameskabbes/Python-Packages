@@ -103,6 +103,7 @@ def get_file_size(bucket, key):
 
 def add_s3n_to_key(key):
 
+    #testing github
     return 's3n://' + key
 
 def bytes_to_giga(bytes):
