@@ -12,12 +12,10 @@ import numpy as np
 import datetime
 import sys
 from dateutil.relativedelta import relativedelta
-# the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
 
 def base_import():
 
     import sys
-    # the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
     sys.path.append('''C:/Users/james/Dropbox/Python/Analytics''')
     import CustomPandas as cpd
 
@@ -48,7 +46,7 @@ def move_last_column_to_first(df):
     df = df[cols]
     return df
 
-def prep_datetime(df, time_col, dt_col, format = '%Y-%m:-%d %H:%M:%S'):
+def prep_datetime(df, time_col, dt_col, format = '%Y-%m-%d %H:%M:%S'):
 
     df[dt_col] = df[time_col].apply(lambda x: datetime.datetime.strptime(x, format) )
     return df
