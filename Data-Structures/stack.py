@@ -2,6 +2,8 @@
 
 class Stack:
 
+    '''First in last out'''
+
     def __init__ (self, list = []):
 
         self.s = list

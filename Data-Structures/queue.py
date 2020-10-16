@@ -2,6 +2,8 @@
 
 class Queue:
 
+    '''First in first out'''
+
     def __init__ (self, list = []):
 
         self.q = list
