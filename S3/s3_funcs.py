@@ -102,6 +102,32 @@ def bytes_to_giga(bytes):
 
 def import_credentials(file_path, export_role, set_creds = True):
 
+    '''File path is a text file that looks like this
+
+    ///Begin File
+    [721818040399_aap-datasci-ic-stl]
+    aws_access_key_id = ABCDEFGHIJKLM
+    aws_secret_access_key = ABCDEFGHIJKLM
+    aws_session_token = ABCDEFGHIJKLM
+
+    [721818040399_aap-datasci-ic-uiuc]
+    aws_access_key_id = ABCDEFGHIJKLM
+    aws_secret_access_key = ABCDEFGHIJKLM
+    aws_session_token = ABCDEFGHIJKLM
+
+    [721818040399_aap-s3temp-ic-uiuc]
+    aws_access_key_id = ABCDEFGHIJKLM
+    aws_secret_access_key = ABCDEFGHIJKLM
+    aws_session_token = ABCDEFGHIJKLM
+    ///End File
+
+    ^^^Export role is one of the three
+    1. '721818040399_aap-datasci-ic-stl'
+    2. '721818040399_aap-datasci-ic-uiuc'
+    3. '721818040399_aap-s3temp-ic-uiuc'
+
+    '''
+
     file = open(file_path, 'r')
 
     roles = {}
