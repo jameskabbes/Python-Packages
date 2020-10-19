@@ -132,6 +132,7 @@ def new_df_with_value_in_col(df, col, val, opposite = False):
 
 def split_df_into_equal_time(df, time_chunk, datetime_col, format = 'seconds'):
 
+
     '''returns dfs after being split into separate dfs by a time separator
     example: starting from time 0, separate into chunks of 3 weeks at a time
 
@@ -255,12 +256,12 @@ def filter_df_by_dates(df, date_col_dt, lower_datetime = None, upper_datetime = 
 
 def df_datetime_to_time_cols(df, datetime_col):
 
-    df['year'] = df[datetime_col].apply(lambda x: x.year)
-    df['month'] = df[datetime_col].apply(lambda x: x.month)
-    df['day'] = df[datetime_col].apply(lambda x: x.day)
-    df['hour'] = df[datetime_col].apply(lambda x: x.hour)
-    df['minute'] = df[datetime_col].apply(lambda x: x.minute)
-    df['second'] = df[datetime_col].apply(lambda x: x.second)
+    df['YEAR'] = df[datetime_col].apply(lambda x: x.year)
+    df['MONTH'] = df[datetime_col].apply(lambda x: x.month)
+    df['DAY'] = df[datetime_col].apply(lambda x: x.day)
+    df['HOUR'] = df[datetime_col].apply(lambda x: x.hour)
+    df['MINUTE'] = df[datetime_col].apply(lambda x: x.minute)
+    df['SECOND'] = df[datetime_col].apply(lambda x: x.second)
 
     return df
 
