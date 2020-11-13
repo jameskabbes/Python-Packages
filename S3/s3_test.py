@@ -1,13 +1,23 @@
 #import the s3_funcs module
 import s3_funcs
+import sys
 
+### Update with your own location
 
-credentials_path = 'C:/Users/e150445/Desktop/aws_creds.txt'
-aws_role = '721818040399_aap-datasci-ic-stl'
+aws_creds_folder = 'C:/Users/e150445/Documents/AWS-Credentials'
+sys.path.append( aws_creds_folder )
+import import_credentials as imp_cred
 
-credentials = s3_funcs.import_credentials(credentials_path, aws_role)
+credentials_path = aws_creds_folder + '/' + 'aws_creds.txt'
+aws_role = '721818040399_aap-s3temp-ic-uiuc'
 
-bucket = 'aa-userland-s3-nonprd'
-prefix = 'datalabs/ic-stl/shared/DATA_EXTRACTS_METER_DATA/'
+###import credentials
+creds = s3_funcs.import_credentials( credentials_path,  aws_role )
+print (creds)
 
-s3_funcs.list_files(bucket, prefix)
+### Insert your own s3_functions to test
+s3_funcs.list_buckets()
+
+bucket = 'aee-analytics-tools-dev-in-il'
+s3_funcs.list_files( bucket, 'AIM_Sample_Data/')
+s3_funcs.list_subfolders( bucket, '')

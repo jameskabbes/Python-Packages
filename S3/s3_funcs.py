@@ -9,10 +9,12 @@ def get_client():
 def list_buckets():
 
     resource = get_resource()
+    buckets = []
     for bucket in resource.buckets.all():
         print (bucket.name)
+        buckets.append(bucket.name)
 
-    return bucket.name
+    return buckets
 
 def list_subfolders(bucket, prefix):
 
@@ -100,6 +102,55 @@ def bytes_to_giga(bytes):
 
     return bytes / 1024 / 1024 / 1024
 
+def import_all_roles( credentials_path ):
+
+    ###Set Filename
+    file = open(  credentials_path , 'r')
+
+    ###Find which roles are contained in the file
+    roles = {}
+
+    for line in file.readlines():
+        line = line.strip()
+
+        if line[0] == '[' and line[-1] == ']':
+            #this is a role
+            role = line[1:-1]
+            roles[role] = {}
+
+        elif line == '':
+            #blank lines
+            continue
+
+        else:
+            #should be a key-value combo
+            key_value_list = line.split('=')
+
+            if len(key_value_list) != 1:
+
+                for i in range(len(line)):
+                    if line[i] == '=':
+                        #find the first instance of an equal sign
+
+                        key = line[:i].strip()
+                        value = line[(i+1):].strip()
+                        break
+
+                roles[role].update( {key : value} )
+
+
+    file.close()
+
+    return roles
+
+def import_role(credentials_path, role):
+
+    roles = import_all_roles(credentials_path)
+
+    for role_id in roles:
+        if role in role_id:
+            return roles[ role_id ]
+
 def import_credentials(file_path, export_role, set_creds = True):
 
     '''File path is a text file that looks like this
@@ -125,36 +176,13 @@ def import_credentials(file_path, export_role, set_creds = True):
     1. '721818040399_aap-datasci-ic-stl'
     2. '721818040399_aap-datasci-ic-uiuc'
     3. '721818040399_aap-s3temp-ic-uiuc'
-
     '''
-
-    file = open(file_path, 'r')
-
-    roles = {}
-
-    for i in file.readlines():
-        i = i.strip()
-
-        kv = i.split('=')
-
-        if len(kv) == 1:
-            #it is a role
-            role = kv[0][1:-1]
-
-            if role == '':
-                continue
-
-            roles[role] = {}
-
-        else:
-            roles[role].update(  {kv[0].strip() : kv[1].strip() }  )
+    role_dict = import_role(file_path, export_role)
 
     if set_creds:
-        set_credentials(roles[export_role])
+        set_credentials( role_dict )
 
-    file.close()
-
-    return roles[export_role]
+    return role_dict
 
 def set_credentials(dictionary):
 
