@@ -11,7 +11,7 @@ except:
 
 try:
     #work
-    sys.path.append('''C:/Users/e150445/Documents/Analytics''')
+    sys.path.append('''C:/Users/e150445/Documents/Python-Packages/Analytics''')
 except:
     pass
 
@@ -32,6 +32,20 @@ def get_book(book):
         b = xw.Book(None)
         b.save(book)
         return b
+
+def get_book_sheets(book_class):
+
+    return book_class.sheets
+
+def get_book_sheets_names(book_class):
+
+    names = []
+    sheets = get_book_sheets( book_class )
+
+    for sheet in sheets:
+        names.append( sheet.name )
+
+    return names
 
 def get_ws(book_name, sheet = 'Sheet1'):
 

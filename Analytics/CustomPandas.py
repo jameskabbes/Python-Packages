@@ -22,7 +22,7 @@ def base_import():
 def get_df(file_name, delim = ','):
     '''Read csv file from local directory: return dataframe'''
 
-    df = pd.read_csv(file_name, header = 0,  sep = delim)
+    df = pd.read_csv(file_name, header = 0, sep = delim)
     return df
 
 def df_change_row_ind_col_value(df, index, column, new_val):
@@ -112,11 +112,6 @@ def combine_all_string_columns(df, columns, new_column):
     df = drop_these_cols(df, cols_added)
     #print (df)
     return df
-
-def drop_these_cols(df, cols):
-
-    '''drops cols from df'''
-    return df.drop(cols, axis = 1)
 
 def new_df_with_value_in_col(df, col, val, opposite = False):
 
@@ -254,7 +249,7 @@ def filter_df_by_dates(df, date_col_dt, lower_datetime = None, upper_datetime = 
 
     return filtered
 
-def df_datetime_to_time_cols(df, datetime_col):
+def df_datetime_to_time_cols(df, datetime_col ,extra = False):
 
     df['YEAR'] = df[datetime_col].apply(lambda x: x.year)
     df['MONTH'] = df[datetime_col].apply(lambda x: x.month)
@@ -262,6 +257,10 @@ def df_datetime_to_time_cols(df, datetime_col):
     df['HOUR'] = df[datetime_col].apply(lambda x: x.hour)
     df['MINUTE'] = df[datetime_col].apply(lambda x: x.minute)
     df['SECOND'] = df[datetime_col].apply(lambda x: x.second)
+
+    if extra:
+
+        df['WEEKDAY'] = df[datetime_col].apply( lambda x: x.weekday() )
 
     return df
 
@@ -320,7 +319,7 @@ def keep_these_cols(df, cols):
 
 def drop_these_cols(df, cols):
     '''Returns dataframe without columns 'cols' '''
-    return df.drop([cols], axis = 1)
+    return df.drop(cols, axis = 1)
 
 def keep_these_rows(df, rows):
     '''Returns dataframe with index values contained in 'rows' '''
