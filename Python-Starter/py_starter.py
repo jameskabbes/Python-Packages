@@ -1,4 +1,5 @@
 import pyperclip
+import importlib.util
 
 ### Helpful python functions
 
@@ -33,6 +34,14 @@ def print_for_loop(list):
 def copy(string):
     '''copies string to clipboard'''
     pyperclip.copy(string)
+
+def import_module_from_path(script_path, module_name = 'new_module'):
+
+    spec = importlib.util.spec_from_file_location( module_name, path )
+    module = importlib.util.module_from_spec( spec )
+
+    spec.loader.exec_module( module )
+    return module
 
 
 
